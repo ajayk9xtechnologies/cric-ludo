@@ -1,5 +1,5 @@
 // //mantis Home Gallery Images
-// import MantisImage from "../assets/images/DSC01348-scaled.webp";
+import FooterBg from "../assets/images/FooterBg.png";
 // import MantisImageOne from "../assets/images/DSC01362-1-1024x683.webp";
 // import MantisImageTwo from "../assets/images/DSC01389-2048x1365.webp";
 // import MantisImageThree from "../assets/images/DSC01432-scaled.webp";
@@ -38,37 +38,37 @@
 // // import MantisVideo from '../assets/images/MicrosoftTeams-video (1).mp4';
 // import party_background_pattern from "../assets/images/party_background_pattern.webp";
 
-// export {
-//   MantisImage,
-//   MantisImageOne,
-//   MantisImageTwo,
-//   MantisImageThree,
-//   MantisImageFour,
-//   MantisImageFive,
-//   MantisImageSix,
-//   MantisImageSeven,
-//   MantisImageEight,
-//   MantisImageNine,
-//   MantisImageTen,
-//   MantisImageEleven,
-//   MantisImageTwevele,
-//   MantisImageThirteen,
-//   MantisImageFourteen,
-//   galleryClubImage1,
-//   galleryClubImage2,
-//   // galleryClubImage3,
-//   galleryClubImage4,
-//   galleryClubImage5,
-//   galleryClubImage6,
-//   galleryClubImage7,
-//   galleryClubImage8,
-//   // galleryClubImage9,
-//   galleryClubImage10,
-//   galleryClubImage11,
-//   champagne,
-//   google,
-//   mantisLogo,
+export {
+  FooterBg,
+  //   MantisImageOne,
+  //   MantisImageTwo,
+  //   MantisImageThree,
+  //   MantisImageFour,
+  //   MantisImageFive,
+  //   MantisImageSix,
+  //   MantisImageSeven,
+  //   MantisImageEight,
+  //   MantisImageNine,
+  //   MantisImageTen,
+  //   MantisImageEleven,
+  //   MantisImageTwevele,
+  //   MantisImageThirteen,
+  //   MantisImageFourteen,
+  //   galleryClubImage1,
+  //   galleryClubImage2,
+  //   // galleryClubImage3,
+  //   galleryClubImage4,
+  //   galleryClubImage5,
+  //   galleryClubImage6,
+  //   galleryClubImage7,
+  //   galleryClubImage8,
+  //   // galleryClubImage9,
+  //   galleryClubImage10,
+  //   galleryClubImage11,
+  //   champagne,
+  //   google,
+  //   mantisLogo,
 
-//   // MantisVideo,
-//   party_background_pattern,
-// };
+  //   // MantisVideo,
+  //   party_background_pattern,
+};

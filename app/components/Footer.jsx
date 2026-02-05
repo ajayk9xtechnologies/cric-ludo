@@ -118,7 +118,7 @@ const Footer = () => {
       </div>
 
       {/* Copyright Bar */}
-      <div className="w-full bg-[#1a103c] text-white py-4 mt-12 text-center text-xs md:text-sm">
+      <div className="w-full bg-[#1a103c] text-white py-4 mt-12 text-center text-xs md:text-sm px-1">
         <p>© 2026 Cric Ludo Studios. All rights reserved</p>
       </div>
     </footer>

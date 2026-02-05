@@ -2,15 +2,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import LenisProvider from "./components/shared/Lenis";
 import Footer from "./components/Footer";
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { lalezar, dmSans } from "./font";
+import { SmoothCursor } from "./components/ui/smooth-cursor";
 
 export const metadata = {
   title: "Create Next App",
@@ -20,11 +13,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${lalezar.variable} ${dmSans.variable} font-sans overflow-hidden`}>
         <LenisProvider />
-        {children}
-        <Footer />
+        {/* <SmoothCursor /> */}
 
+        {children}
+        <Footer className="mt-20"/>
       </body>
     </html>
   );

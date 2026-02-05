@@ -13,7 +13,7 @@ export default function Home() {
       <div className="tournament-bg"></div>
       
       {/* Main content with proper layering */}
-      <div className="relative min-h-screen">
+      <div className="relative min-h-screen ">
         <section
           className="pb-20 relative z-10"
           style={{
@@ -21,7 +21,7 @@ export default function Home() {
               "linear-gradient(to bottom, transparent 0%, #ffffff 20%, #f9e9ff 45%, #865cda 100%)",
           }}
         >
-          <div className="container mx-auto bg-white relative top-20 heroStart shadow-xl mb-20">
+          <div className="container mx-auto bg-white relative top-20 heroStart shadow-xl mb-20 overflow-x-hidden rounded-xxl ">
             <Hero />
             <AppFeatures />
             <AboutOurApp />

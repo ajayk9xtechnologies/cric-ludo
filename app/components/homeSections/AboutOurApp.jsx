@@ -83,7 +83,7 @@ export default function AboutOurApp() {
         {/* Right Side - Content */}
         <div
           ref={contentRef}
-          className="flex flex-col items-center md:items-start text-center md:text-left space-y-6 max-w-xl mx-auto md:mx-0"
+          className="flex flex-col items-center md:items-start text-center md:text-left space-y-6 max-w-xl mx-auto md:mx-0 p-5"
         >
           <div className="space-y-2 mb-0">
             <h3 className="font_three">About</h3>

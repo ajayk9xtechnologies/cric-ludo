@@ -107,25 +107,26 @@ export default function Hero() {
       className="hero h-[80dvh] lg:h-[1340px] relative overflow-hidden"
     >
       {/* Center Content - Logo and Text */}
-      <div className="relative z-10 w-full px-4 flex flex-col items-center pt-10 md:pt-20">
+      <div className="relative z-10 w-full px-4 flex flex-col items-center pt-6 md:pt-10">
         {/* Logo */}
-        <div className="absolute top-70 mb-6 md:mb-10 flex flex-col items-center">
+        <div className="flex flex-col items-center mt-2 md:mt-4">
           <div
             ref={logoRef}
-            className="w-50 flex flex-col items-center justify-center"
+            className="flex flex-col items-center justify-center"
           >
             <Image
               src={Logo}
               alt="CricLudo Logo"
-              width={300}
-              height={300}
-              className="object-contain drop-shadow-2xl"
+              width={360}
+              height={360}
+              className="object-contain drop-shadow-2xl w-[140px] sm:w-[180px] md:w-[220px] lg:w-[300px] xl:w-[360px]"
               priority
             />
           </div>
-          <div ref={textRef} className="text-center mt-10 md:mb-0 z-20 heroTitle">
-            <h1 className="font_header text-white">
-              where <span className="italic bg-gradient-to-r from-[#A238FF] to-[#D862FF] bg-clip-text text-transparent"> Cricket </span> <br />
+          <div ref={textRef} className="text-center mt-10 md:mt-6 z-20 heroTitle">
+            <h1 className=" text-white text-[50px] lg:text-[120px] leading-tight lg:leading-[1]">
+              where <span className="italic bg-gradient-to-r from-[#A238FF] to-[#D862FF] bg-clip-text text-transparent"> Cricket </span>
+              <br />
               Meets <span className="italic bg-gradient-to-r from-[#A238FF] to-[#D862FF] bg-clip-text text-transparent">Ludo</span>
             </h1>
           </div>
@@ -153,7 +154,7 @@ export default function Hero() {
         <Image
           src={helmetandbat}
           alt="Cricket Character"
-          width={400}
+          width={450}
           height={400}
           className="object-contain drop-shadow-2xl w-full h-auto"
           priority

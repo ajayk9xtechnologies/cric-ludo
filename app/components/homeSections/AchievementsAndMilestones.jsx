@@ -8,333 +8,215 @@ import {
   cricludo,
   dice,
 } from "@/app/common";
+import { AuroraText } from "../ui/aurora-text";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { AuroraText } from "../ui/aurora-text";
 
 gsap.registerPlugin(ScrollTrigger);
+const features = [
+  {
+    title: "Highly Rated Gameplay",
+    description:
+      "Players Appreciate Cricludo For Its Unique Concept, Smooth Gameplay, And Perfect Blend Of Cricket And Ludo.",
+  },
+  {
+    title: "A Unique Gaming Concept",
+    description:
+      "Cricludo Stands Out As A One Of A Kind Game Where Cricket Strategy Meets Board Game Fun",
+  },
+  {
+    title: "Continuous Improvements",
+    description:
+      "Regular Updates, New Features, And Performance Enhancements Keep The Game Fresh And Engaging.",
+  },
+  {
+    title: "Thousands Of Matches Played",
+    description:
+      "From Quick Fun Games To Intense Strategic Battles, Cricludo Has Already Powered Thousands Of Exciting Matches.",
+  },
+  {
+    title: "Growing Community",
+    description:
+      "Loved By Players Across All Age Groups, Cricludo Is Building A Strong And Passionate Gaming Community Every Day.",
+  },
+];
 
 export default function AchievementsAndMilestones() {
-  const containerRef = useRef(null);
-  const phonesContainerRef = useRef(null);
-  const centerPhoneRef = useRef(null);
-  const leftPhoneRef = useRef(null);
-  const rightPhoneRef = useRef(null);
-  const textSectionRef = useRef(null);
-  const boardRef = useRef(null); // Ref for 3D Tilt
+  const leftImgRef = useRef(null);
+  const centerImgRef = useRef(null);
+  const rightImgRef = useRef(null);
+  const imagesRowRef = useRef(null);
+  const boardRef = useRef(null);
+  const featuresGridRef = useRef(null);
+  const featureItemsRef = useRef([]);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      ScrollTrigger.matchMedia({
-        // ✅ Mobile (<= 640px)
-        "(max-width: 640px)": () => {
-          gsap.set(centerPhoneRef.current, { opacity: 1, scale: 1, y: 0 });
-          gsap.set(leftPhoneRef.current, {
-            opacity: 0,
-            x: -30,
-            scale: 0.9,
-            rotate: -5,
-          });
-          gsap.set(rightPhoneRef.current, {
-            opacity: 0,
-            x: 30,
-            scale: 0.9,
-            rotate: 5,
-          });
+    const leftEl = leftImgRef.current;
+    const centerEl = centerImgRef.current;
+    const rightEl = rightImgRef.current;
+    const container = imagesRowRef.current;
 
-          const tl = gsap.timeline({
-            scrollTrigger: {
-              trigger: phonesContainerRef.current,
-              start: "top top",
-              end: "+=500",
-              scrub: 1,
-              pin: true,
-              anticipatePin: 1,
-            },
-          });
+    if (!leftEl || !centerEl || !rightEl || !container) return;
 
-          tl.to(leftPhoneRef.current, {
-            opacity: 1,
-            x: -60,
-            scale: 0.85,
-            duration: 1,
-            ease: "power2.out",
-          }).to(
-            rightPhoneRef.current,
-            {
-              opacity: 1,
-              x: 60,
-              scale: 0.85,
-              duration: 1,
-              ease: "power2.out",
-            },
-            "<",
-          );
-        },
+    // Initial states: center visible, left/right hidden off-screen
+    gsap.set([leftEl, rightEl], { opacity: 0, x: (i) => (i === 0 ? -50 : 50) });
+    gsap.set(centerEl, { opacity: 1, x: 0 });
 
-        // ✅ Tablet (641px–1023px)
-        "(min-width: 641px) and (max-width: 1023px)": () => {
-          gsap.set(centerPhoneRef.current, { opacity: 1, scale: 1, y: 0 });
-          gsap.set(leftPhoneRef.current, { opacity: 0, x: -50, scale: 0.9 });
-          gsap.set(rightPhoneRef.current, { opacity: 0, x: 50, scale: 0.9 });
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: container,
+        start: "top center",
+        end: "+=400",
+        scrub: true,
+      },
+    });
 
-          const tl = gsap.timeline({
-            scrollTrigger: {
-              trigger: phonesContainerRef.current,
-              start: "top top",
-              end: "+=600",
-              scrub: 1,
-              pin: true,
-              anticipatePin: 1,
-            },
-          });
+    // On scroll: reveal left, then reveal right
+    tl.to(leftEl, { opacity: 1, x: 0, duration: 0.6 }).to(
+      rightEl,
+      { opacity: 1, x: 0, duration: 0.6 },
+      ">+=0.1",
+    );
 
-          tl.to(leftPhoneRef.current, {
-            opacity: 1,
-            x: -140,
-            scale: 0.9,
-            duration: 1,
-            ease: "power2.out",
-          }).to(
-            rightPhoneRef.current,
-            {
-              opacity: 1,
-              x: 140,
-              scale: 0.9,
-              duration: 1,
-              ease: "power2.out",
-            },
-            "<",
-          );
-        },
-
-        // ✅ Desktop (>= 1024px)
-        "(min-width: 1024px)": () => {
-          gsap.set(centerPhoneRef.current, { opacity: 1, scale: 1, y: 0 });
-          gsap.set(leftPhoneRef.current, { opacity: 0, x: -60, scale: 0.9 });
-          gsap.set(rightPhoneRef.current, { opacity: 0, x: 60, scale: 0.9 });
-
-          const tl = gsap.timeline({
-            scrollTrigger: {
-              trigger: phonesContainerRef.current,
-              start: "top top",
-              end: "+=800",
-              scrub: 1,
-              pin: true,
-              anticipatePin: 1,
-            },
-          });
-
-          tl.to(leftPhoneRef.current, {
-            opacity: 1,
-            x: -280,
-            scale: 1,
-            duration: 1,
-            ease: "power2.out",
-          }).to(
-            rightPhoneRef.current,
-            {
-              opacity: 1,
-              x: 280,
-              scale: 1,
-              duration: 1,
-              ease: "power2.out",
-            },
-            "<",
-          );
-        },
-      });
-    }, phonesContainerRef);
-
-    return () => ctx.revert();
+    return () => {
+      tl && tl.kill();
+      ScrollTrigger.getAll().forEach((st) => st.kill());
+    };
   }, []);
 
-  // 3D Tilt Effect Handlers
-  const handleMouseMove = (e) => {
-    const { clientX, clientY, currentTarget } = e;
-    const { width, height, left, top } = currentTarget.getBoundingClientRect();
+  useEffect(() => {
+    const items = featureItemsRef.current.filter(Boolean);
+    const grid = featuresGridRef.current;
+    if (!items.length || !grid) return;
 
-    const x = clientX - left;
-    const y = clientY - top;
+    gsap.from(items, {
+      y: 30,
+      opacity: 0,
+      stagger: 0.12,
+      duration: 0.6,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: grid,
+        start: 'top 85%',
+        toggleActions: 'play none none reverse',
+      },
+    });
 
-    // Calculate rotation (-20 to 20 degrees)
-    const xRot = (y / height - 0.5) * -30; // Rotate X based on Y position (inverted)
-    const yRot = (x / width - 0.5) * 30; // Rotate Y based on X position
+    return () => {
+      ScrollTrigger.getAll().forEach((st) => st.kill());
+    };
+  }, []);
 
-    gsap.to(boardRef.current, {
-      rotationX: xRot,
-      rotationY: yRot,
-      scale: 1.1,
+  const handleBoardPointer = (clientX, clientY) => {
+    const el = boardRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const x = clientX - rect.left;
+    const y = clientY - rect.top;
+    const px = (x / rect.width - 0.5) * 2; // -1 .. 1
+    const py = (y / rect.height - 0.5) * 2; // -1 .. 1
+
+    const rotationY = px * 12; // degrees
+    const rotationX = -py * 12; // degrees (invert for natural tilt)
+
+    gsap.to(el, {
+      rotationX,
+      rotationY,
+      scale: 1.06,
       transformPerspective: 1000,
-      ease: "power2.out",
-      duration: 0.5,
+      transformOrigin: 'center',
+      duration: 0.35,
+      ease: 'power2.out',
     });
   };
 
-  const handleMouseLeave = () => {
-    gsap.to(boardRef.current, {
-      rotationX: 0,
-      rotationY: 0,
-      scale: 1,
-      ease: "power2.out",
-      duration: 0.5,
-    });
+  const handleMouseMove = (e) => {
+    handleBoardPointer(e.clientX, e.clientY);
   };
 
-  const features = [
-    {
-      title: "Highly Rated Gameplay",
-      description:
-        "Players Appreciate Cricludo For Its Unique Concept, Smooth Gameplay, And Perfect Blend Of Cricket And Ludo.",
-    },
-    {
-      title: "A Unique Gaming Concept",
-      description:
-        "Cricludo Stands Out As A One Of A Kind Game Where Cricket Strategy Meets Board Game Fun",
-    },
-    {
-      title: "Continuous Improvements",
-      description:
-        "Regular Updates, New Features, And Performance Enhancements Keep The Game Fresh And Engaging.",
-    },
-    {
-      title: "Thousands Of Matches Played",
-      description:
-        "From Quick Fun Games To Intense Strategic Battles, Cricludo Has Already Powered Thousands Of Exciting Matches.",
-    },
-    {
-      title: "Growing Community",
-      description:
-        "Loved By Players Across All Age Groups, Cricludo Is Building A Strong And Passionate Gaming Community Every Day.",
-    },
-  ];
+  const handleTouchMove = (e) => {
+    if (!e.touches || !e.touches[0]) return;
+    handleBoardPointer(e.touches[0].clientX, e.touches[0].clientY);
+  };
 
+  const handlePointerLeave = () => {
+    const el = boardRef.current;
+    if (!el) return;
+    gsap.to(el, { rotationX: 0, rotationY: 0, scale: 1, duration: 0.6, ease: 'power2.out' });
+  };
   return (
-    <div
-      ref={containerRef}
-      className="relative w-full bg-white overflow-hidden flex flex-col items-center"
-    >
-      {/* SECTION 1: Phones Animation Area */}
-      <div
-        ref={phonesContainerRef}
-        className="relative w-full h-[60vh] sm:h-[70vh] md:h-[90vh] flex items-center justify-center py-10"
-      >
-        <div className="relative w-full max-w-7xl h-full flex items-center justify-center">
-          {/* Left Phone */}
-          <div
-            ref={leftPhoneRef}
-            className="absolute z-10 w-[42%] max-w-[200px] sm:max-w-[220px] md:max-w-[260px] lg:max-w-[240px] xl:max-w-[300px] 2xl:max-w-[350px]"
-            style={{
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-            }}
-          >
-            <Image
-              src={mobileWithGameTwo}
-              alt="Left Screen"
-              width={200}
-              height={400}
-              className="w-full h-auto object-contain drop-shadow-2xl"
-            />
-          </div>
-
-          {/* Right Phone */}
-          <div
-            ref={rightPhoneRef}
-            className="absolute z-10 w-[42%] max-w-[200px] sm:max-w-[220px] md:max-w-[260px] lg:max-w-[240px] xl:max-w-[300px] 2xl:max-w-[350px]"
-            style={{
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-            }}
-          >
-            <Image
-              src={mobileWithGameThree}
-              alt="Right Screen"
-              width={200}
-              height={400}
-              className="w-full h-auto object-contain drop-shadow-2xl"
-            />
-          </div>
-
-          {/* Center Phone */}
-          <div
-            ref={centerPhoneRef}
-            className="absolute z-20 w-[48%] max-w-[220px] sm:max-w-[260px] md:max-w-[300px] lg:max-w-[280px] xl:max-w-[320px] 2xl:max-w-[400px]"
-            style={{
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-            }}
-          >
-            <Image
-              src={mobileWithGameOne}
-              alt="Center Screen"
-              width={220}
-              height={440}
-              className="w-full h-auto object-contain drop-shadow-2xl"
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* SECTION 2: Achievements Grid */}
-      <div
-        ref={textSectionRef}
-        className="w-full bg-white py-16 px-4 md:px-10 z-30"
-      >
-        <div className="mx-auto">
-          {/* Header */}
-          <div className="text-center mb-16 space-y-4">
-            <h2 className="text-4xl md:text-5xl font-bold text-[#333333] font-[var(--font-lalezar)]">
-              Achievements & Milestones
-            </h2>
-            {/* 3D Tilt Container */}
-            <div
-              className="container flex justify-center mx-auto mt-8 cursor-pointer perspective-1000"
-              onMouseMove={handleMouseMove}
-              onMouseLeave={handleMouseLeave}
-            >
-              <div
-                ref={boardRef}
-                className=" relative tranform-style-3d"
-              >
+    <>
+      <section className="w-full py-12 bg-white">
+        <div className=" w-full px-4">
+          <div className="w-full flex items-center justify-center">
+            {/* Three images in a single row, no gap, fixed height 220px */}
+            <div ref={imagesRowRef} className="flex w-full justify-center gap-0">
+              <div ref={leftImgRef} className="overflow-hidden">
                 <Image
-                  src={cricludo}
-                  alt="Ludo Board"
-                  width={300} height={300}
-                  className="object-contain drop-shadow-xl"
+                  src={mobileWithGameOne}
+                  alt="screen one"
+                  width={220}
+                  height={250}
+                />
+              </div>
+              <div ref={centerImgRef} className="overflow-hidden">
+                <Image
+                  src={mobileWithGameTwo}
+                  alt="screen two"
+                  width={220}
+                  height={220}
+                />
+              </div>
+              <div ref={rightImgRef} className="overflow-hidden">
+                <Image
+                  src={mobileWithGameThree}
+                  alt="screen three"
+                  width={220}
+                  height={220}
                 />
               </div>
             </div>
           </div>
-
-          {/* Features Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-12">
-            {features.map((item, index) => (
-              <div key={index} className="flex gap-4 items-start">
-                {/* Icon */}
-                <div className="flex-shrink-0 relative mt-1">
-                  <Image src={dice} alt="icon" width={60} height={60} />
-                </div>
-                {/* Text */}
-                <div className="space-y-2">
-                  <h2 className="font_one font-bold">
-                    <AuroraText>{item.title}</AuroraText>
-                  </h2>
-                  <p className="text-gray-600 text-sm leading-relaxed font-[var(--font-dm-sans)]">
-                    {item.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
-      </div>
 
-      {/* Dotted Line Divider (Bottom) */}
-      <div className="w-full border-b-[3px] border-dotted border-[#60A5FA] mt-10"></div>
-    </div>
+      </section>
+      <section className="container mx-auto lg:px-10 my-20">
+        <div
+          ref={boardRef}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handlePointerLeave}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handlePointerLeave}
+          className="flex justify-center tranform-style-3d perspective-1000 cursor-move"
+        >
+          <Image
+            src={cricludo}
+            alt="Ludo Board"
+            width={300}
+            height={300}
+            className="object-contain drop-shadow-xl will-change-transform mb-5"
+          />
+        </div>
+        <div ref={featuresGridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 xl:gap-x-10 gap-y-12">
+          {features.map((item, index) => (
+            <div ref={(el) => (featureItemsRef.current[index] = el)} key={index} className="flex gap-2 xl:gap-4 items-start">
+              {/* Icon */}
+              <div className="flex-shrink-0 relative mt-1">
+                <Image src={dice} alt="icon" width={60} height={60} />
+              </div>
+              {/* Text */}
+              <div className="space-y-2">
+                <h2 className="font_one font-bold">
+                  <AuroraText>{item.title}</AuroraText>
+                </h2>
+                <p className="text-gray-600 text-sm leading-relaxed font-[var(--font-dm-sans)]">
+                  {item.description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    </>
   );
 }

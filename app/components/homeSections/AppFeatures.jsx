@@ -1,86 +1,174 @@
 "use client";
-import { mobileWithGameOne,mobileWithGameTwo ,mobileWithGameThree} from "@/app/common";
+import { slider_img, manTargeting } from "@/app/common";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import FeatureCard from "../ui/FeatureCard";
+
+// Register plugins once (can move to a custom hook or layout if preferred)
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export default function AppFeatures() {
-    const slides = [
-    { id: 1, title: "Feature One", img: mobileWithGameOne },
-    { id: 2, title: "Feature Two", img: mobileWithGameTwo },
-    { id: 3, title: "Feature Three", img: mobileWithGameThree },
+  const slides = [
+    {
+      id: 1,
+      title: "Strategy + Sports",
+      description: "Combines Board Game Logic With The Thrill Of Sports Competition. Perfect For Strategy Lovers!",
+      img: slider_img
+    },
+    {
+      id: 2,
+      title: "Fast & Smooth",
+      description: "Optimized For All Android Devices. Enjoy Seamless Gameplay With Lightning-Fast Performance!",
+      img: slider_img
+    },
+    {
+      id: 3,
+      title: "Real Players",
+      description: "Compete against real players from around the world in real-time matches.",
+      img: slider_img
+    },
+    {
+      id: 4,
+      title: "Fair Play",
+      description: "Our certified RNG ensures every dice roll is truly random and fair for everyone.",
+      img: slider_img
+    },
   ];
-    const [index, setIndex] = useState(0);
-  const timeoutRef = useRef(null);
-  const containerRef = useRef(null);
-  const slideRefs = useRef([]);
 
-  const next = () => setIndex((i) => (i + 1) % slides.length);
-  const prev = () => setIndex((i) => (i - 1 + slides.length) % slides.length);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [visibleCards, setVisibleCards] = useState(1);
 
-  // Optional: pause auto-advance when user interacts
+  // Ref for the left image container
+  const imageContainerRef = useRef(null);
+
   useEffect(() => {
-    // Auto-advance every 5s on non-mobile if you want; currently disabled
-    return () => clearTimeout(timeoutRef.current);
+    const handleResize = () => {
+      setVisibleCards(window.innerWidth >= 768 ? 2 : 1);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // GSAP animation for the character image
+  useEffect(() => {
+    if (!imageContainerRef.current) return;
+
+    // Reset element to initial state
+    gsap.set(imageContainerRef.current, {
+      clearProps: "all"
+    });
+
+    gsap.from(imageContainerRef.current, {
+      x: -120,               // start from left (adjust -80 to -200 based on desired distance)
+      opacity: 0,
+      duration: 1.2,         // smooth but not too slow
+      ease: "power3.out",    // nice deceleration – feels natural
+      // ease: "back.out(1.4)",  // optional: slight overshoot for playful feel
+      scrollTrigger: {
+        trigger: imageContainerRef.current.parentElement || ".lg\\:flex-row", // whole features row or section
+        start: "top 80%",      // start when top of section is 80% down viewport (early reveal)
+        toggleActions: "play none none reverse", // play on enter, reverse on scroll up
+        // markers: true,      // uncomment to debug trigger lines
+      },
+    });
+
+    // Refresh ScrollTrigger after a short delay
+    const refreshTimeout = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 100);
+
+    return () => {
+      clearTimeout(refreshTimeout);
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
+
+  const totalDots = Math.ceil(slides.length / visibleCards);
+
+  const goToSlide = (slideIndex) => {
+    setCurrentIndex(slideIndex * visibleCards);
+  };
+
   return (
-    <div className="py-10">
-      <div className="flex flex-row">
-        <div className="basis-1/3">01</div>
-        <div className="basis-2/3">
-            <div className="relative">
-          {/* Slides: only one visible at a time on mobile */}
-          <div className="overflow-hidden">
-            {slides.map((s, i) => (
-              <div
-                key={s.id}
-                className={`transition-opacity duration-500 ${i === index ? "block" : "hidden"}`}>
-                <Image
-                  src={s.img}
-                  alt={s.title}
-                  width={50}
-                  height={50}
-                  className=""
-                />
-                <div className="mt-3 text-center font-bold text-lg">{s.title}</div>
-              </div>
-            ))}
-          </div>
+    <div className="py-10 text-center md:text-left">
+      <h2 className="text-center font_subheader leading-tight my-8 lg:my-15">App Features</h2>
+      <div className="flex flex-col lg:flex-row items-center gap-8 md:gap-0">
+        {/* Left Side - Boy Image – now with ref & will-change for smoothness */}
+        <div
+          ref={imageContainerRef}
+          className="basis-full md:basis-1/3 hidden lg:flex items-center justify-center w-full will-change-transform"
+        >
+          <Image
+            src={manTargeting}
+            alt="App Feature Character"
+            width={300}
+            height={500}
+            className="object-contain max-h-[400px]"
+            priority // optional: faster LCP if above fold
+          />
+        </div>
 
-          {/* Prev / Next - visible on mobile (md:hidden) */}
-          <button
-            onClick={prev}
-            aria-label="Previous"
-            className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 p-2 rounded-full shadow md:hidden"
-          >
-            ‹
-          </button>
-          <button
-            onClick={next}
-            aria-label="Next"
-            className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 p-2 rounded-full shadow md:hidden"
-          >
-            ›
-          </button>
-
-          {/* Dots + counter */}
-          <div className="flex items-center justify-center gap-3 mt-3">
-            <div className="text-sm text-gray-600">{index + 1}/{slides.length}</div>
-            <div className="flex gap-2">
-              {slides.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setIndex(i)}
-                  aria-label={`Go to slide ${i + 1}`}
-                  className={`w-2 h-2 rounded-full ${i === index ? "bg-blue-600" : "bg-gray-300"}`}
-                />
+        {/* Right Side - Carousel (unchanged) */}
+        <div className="basis-full md:basis-2/3 w-full overflow-hidden px-4 md:px-0 md:pr-10">
+          <div className="relative">
+            <div
+              className="flex transition-transform duration-500 ease-in-out gap-6"
+              style={{ transform: `translateX(-${(currentIndex * (100 / visibleCards))}%)` }}
+            >
+              {slides.map((s) => (
+                <div
+                  key={s.id}
+                  className={`shrink-0 transition-all duration-300 w-full md:w-[calc(50%-12px)]`}
+                >
+                  <FeatureCard title={s.title} description={s.description} img={s.img} />
+                </div>
               ))}
+            </div>
+
+            {/* Pagination Controls (unchanged) */}
+            <div className="flex items-center justify-center gap-6 mt-8">
+              <button
+                onClick={() => setCurrentIndex((prev) => Math.max(0, prev - 1))}
+                disabled={currentIndex === 0}
+                className="p-2 rounded-full hover:bg-gray-100 disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
+                aria-label="Previous slide"
+              >
+                <ArrowLeft className="w-10 h-10 text-gray-600" />
+              </button>
+
+              <div className="flex items-center gap-2">
+                {Array.from({ length: totalDots }).map((_, idx) => {
+                  const isActive = Math.floor(currentIndex / visibleCards) === idx;
+                  return (
+                    <button
+                      key={idx}
+                      onClick={() => goToSlide(idx)}
+                      className={`transition-all duration-300 rounded-full ${isActive ? "w-8 h-2 bg-gray-900" : "w-2 h-2 bg-gray-300 hover:bg-gray-400"
+                        }`}
+                      aria-label={`Go to slide group ${idx + 1}`}
+                    />
+                  );
+                })}
+              </div>
+
+              <button
+                onClick={() => setCurrentIndex((prev) => Math.min(slides.length - visibleCards, prev + 1))}
+                disabled={currentIndex >= slides.length - visibleCards}
+                className="p-2 rounded-full hover:bg-gray-100 disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
+                aria-label="Next slide"
+              >
+                <ArrowRight className="w-10 h-10 text-gray-600" />
+              </button>
             </div>
           </div>
         </div>
-        </div>
       </div>
     </div>
-    
   );
 }

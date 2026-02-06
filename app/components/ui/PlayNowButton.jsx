@@ -1,11 +1,12 @@
 import React from "react";
- 
+import Link from "next/link";
 export default function PlayNowButton(props) {
-  const { onClick, className = "" } = props;
+  const { onClick, text } = props;
   return (
     <>
       <button className="playnow" onClick={onClick}>
-        <span className="gradient-text">Download Now</span>
+        <span className="gradient-text">
+          <Link href="/download">{text}</Link></span>
       </button>
     </>
   );

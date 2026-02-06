@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./Footer.module.css";
-import { AppStore, PlayStore } from "../common";
 import { Logo } from "../common/index";
 import { Facebook, Youtube, Instagram, Twitter } from "lucide-react";
+import Store from "./Store";
 
 const Footer = () => {
   const socials = [
@@ -36,33 +36,7 @@ const Footer = () => {
           >
             Download Now!
           </h3>
-          <div className="flex gap-4">
-            <Link
-              href="https://apps.apple.com/in/app/cricludo/id6741326528"
-              target="_blank"
-              className="transition-transform hover:scale-105"
-            >
-              <Image
-                src={AppStore}
-                width={200}
-                height={140}
-                alt="Available on the App Store"
-                className=" rounded-lg"
-              />
-            </Link>
-            <Link
-              href="https://play.google.com/store/apps/details?id=com.nineXTechnology.CricLudo&pli=1"
-              target="_blank"
-            >
-              <Image
-                width={200}
-                height={140}
-                src={PlayStore}
-                alt="Google Play Store"
-                className=""
-              />
-            </Link>
-          </div>
+          <Store />
 
           <div className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm md:text-base font-medium text-gray-100">
             <Link href="/" className="hover:text-white transition-colors">
@@ -78,23 +52,23 @@ const Footer = () => {
               App features
             </Link>
             <Link
-              href="/achievements"
+              href="#"
               className="hover:text-white transition-colors"
             >
               Achievements & Milestones
             </Link>
           </div>
           <div className="mt-2 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm font-medium text-gray-100">
-            <Link href="/terms" className="hover:text-white transition-colors">
+            <Link href="/terms-and-condition" className="hover:text-white transition-colors">
               Terms of Service
             </Link>
             <Link
-              href="/privacy"
+              href="/privacy-policy"
               className="hover:text-white transition-colors"
             >
               Privacy Policy
             </Link>
-            <Link href="/cookie" className="hover:text-white transition-colors">
+            <Link href="#" className="hover:text-white transition-colors">
               Cookie Policy
             </Link>
           </div>

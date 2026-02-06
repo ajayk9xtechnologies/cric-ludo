@@ -9,9 +9,8 @@ export const getLenis = () => {
   if (!lenis) {
     lenis = new Lenis({
       duration: 1.2,
-      smooth: true,
+      smoothWheel: true, // v1 syntax
       smoothTouch: false,
-      easing: (t) => 1 - Math.pow(1 - t, 3),
     });
   }
 
@@ -25,3 +24,10 @@ export const startLenis = () => {
 export const stopLenis = () => {
   getLenis()?.stop();
 };
+
+export const destroyLenis = () => {
+  if (lenis) {
+    lenis.destroy();
+    lenis = null;
+  }
+}

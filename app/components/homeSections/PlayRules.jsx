@@ -23,9 +23,9 @@ export default function PlayRules() {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 80%",
-          end: "+=400",
-          scrub: true,
+          start: "top 50%",
+          end: "+=200",
+           scrub: 2,
         },
       });
 
@@ -33,14 +33,14 @@ export default function PlayRules() {
       tl.fromTo(
         leftWrapRef.current,
         { x: -120, opacity: 0 },
-        { x: 0, opacity: 1, ease: "power3.out", duration: 2 },
+        { x: 0, opacity: 1, ease: "power3.out", duration: 3 },
       );
 
       // 2) Then Image 2 moves
       tl.fromTo(
         rightWrapRef.current,
         { x: 120, opacity: 0 },
-        { x: 0, opacity: 1, ease: "power3.out", duration: 2 },
+        { x: 0, opacity: 1, ease: "power3.out", duration: 3 },
       );
     }, sectionRef);
 

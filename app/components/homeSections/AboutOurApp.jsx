@@ -5,11 +5,10 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   blackTitanium,
-  AppStore,
-  PlayStore,
   yellowNike,
 } from "@/app/common/index";
-import { AuroraText } from "../ui/aurora-text.jsx";
+import GradientText from "../GradientText.jsx";
+import Store from "../Store";
 
 // import { CoolMode } from "../ui/cool-mode";
 gsap.registerPlugin(ScrollTrigger);
@@ -65,7 +64,11 @@ export default function AboutOurApp() {
       ref={sectionRef}
       className="relative w-full pb-10 overflow-hidden bg-white"
     >
-      <Image src={yellowNike} className="absolute bottom-20 left-0 w-full" alt="yellowNike" / >
+      <Image
+        src={yellowNike}
+        className="absolute bottom-20 left-0 w-full"
+        alt="yellowNike"
+      />
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center pb-20">
         {/* Left Side - Phone Image */}
         <div className="relative flex justify-center" ref={phoneRef}>
@@ -83,16 +86,14 @@ export default function AboutOurApp() {
         {/* Right Side - Content */}
         <div
           ref={contentRef}
-          className="flex flex-col items-center md:items-start text-center md:text-left space-y-6 max-w-xl mx-auto md:mx-0 p-5"
+          className="flex flex-col items-center md:items-start text-center md:text-left space-y-6 lg:pe-15"
         >
           <div className="space-y-2 mb-0">
             <h3 className="font_three">About</h3>
-            <h2 className="font_two leading-tight">Our App</h2>
+            <h2 className="font_subheader leading-tight">Our App</h2>
           </div>
-          <div className="relative mb-0">
-            <h2 className="font_three font-extrabold">
-              <AuroraText>India’s No.1 Game!</AuroraText>
-            </h2>
+          <div className="relative my-3">
+            <GradientText text="India’s No.1 Game!" />
           </div>
           <p className="leading-relaxed">
             Cric Ludo, The Popular Ludo Game, Is A Digital Adaptation Of The
@@ -104,34 +105,10 @@ export default function AboutOurApp() {
           </p>
 
           <div className="flex flex-row gap-4 pt-4">
-            <a
-              href="#"
-              className="transform hover:-translate-y-1 transition-transform duration-300"
-            >
-              <Image
-                src={AppStore}
-                alt="Download on App Store"
-                width={160}
-                height={50}
-                className="h-12 w-auto"
-              />
-            </a>
-            <a
-              href="#"
-              className="transform hover:-translate-y-1 transition-transform duration-300"
-            >
-              <Image
-                src={PlayStore}
-                alt="Get it on Google Play"
-                width={160}
-                height={50}
-                className="h-12 w-auto"
-              />
-            </a>
+            <Store />
           </div>
         </div>
       </div>
- 
     </section>
   );
 }
